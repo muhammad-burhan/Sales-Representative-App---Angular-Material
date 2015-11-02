@@ -23,4 +23,5 @@ Clicking on any list item system will take user to another screen which has deta
 
 Bootstrap is used to make this app responsive. 
 
-Note: Originally, I used a backend REST services (Provided by Crossover) to fetch details of the customer and authentication. But I have not included that backend in this repo. 
+Note: Originally, I used a backend REST services (Provided by Crossover) to fetch details of the customer and authentication.
+But I have not included that backend in this repo.
