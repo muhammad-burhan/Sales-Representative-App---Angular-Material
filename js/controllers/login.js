@@ -1,14 +1,32 @@
+/**
+ * @ngdoc function
+ * @name sraApp.controller:LoginCtrl
+ * @description
+ * # LoginCtrl
+ * Controller of the sraApp
+ */
 (function() {
     var app = angular.module('loginModule', []);
 
-    app.controller('LoginController', ['$scope', function ($scope) {
+    app.controller('LoginController', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
+        $rootScope.isUserLoggedIn = false;
+        $rootScope.userName = '';
 
+        var sessionIdentifier = sessionStorage.getItem('sessionIdentifier');
+
+        if (sessionIdentifier != '' &&
+            sessionIdentifier != null &&
+            typeof sessionIdentifier != 'undefined'){
+            $rootScope.isUserLoggedIn = true;
+            $rootScope.userName = sessionStorage.getItem('userFullName');
+            $location.path("/customers");
+        }
 
     }]);
 
-    app.controller('LoginFormController', ['$scope', 'Base64MD5EncodingService',
+    app.controller('LoginFormController', ['$scope', 'LoginService', '$location', 'Base64MD5EncodingService',
         '32BitStringGeneratorService', '$rootScope',
-        function ($scope, encodingService, random32BitStringService, $rootScope) {
+        function ($scope, loginService, $location, encodingService, random32BitStringService, $rootScope) {
 
             var loginFormCtrl = this;
             loginFormCtrl.userName = '';
@@ -20,10 +38,53 @@
             };
 
             loginFormCtrl.login = function () {
+                var randomToken = random32BitStringService.generate();
+                var encodedPass = encodingService.convertTOBase64MD5(loginFormCtrl.password);
+                var encodedDigest = encodingService.convertTOBase64MD5(loginFormCtrl.userName + "," + encodedPass + "," + randomToken);
 
+                var data = {
+                    "token": randomToken,
+                    "digest": encodedDigest,
+                    "user": {
+                        "username": loginFormCtrl.userName,
+                        "password": encodedPass
+                    }
+                };
+
+                loginService.callLoginService(data).then(function (data) {
+
+                    if (data != null) {
+                        if (data.code == 0 && data.sessionId != null) {
+                            sessionStorage.setItem('userFullName', data.data.firstname + " " + data.data.lastname);
+                            $rootScope.userName = sessionStorage.getItem('userFullName');
+                            $rootScope.isUserLoggedIn = true;
+                            sessionStorage.setItem('sessionIdentifier', data.sessionId);
+                            $location.path("/customers");
+                        } else {
+                            if (data.message.indexOf('Error in login data for user') >= 0) {
+                                loginFormCtrl.resetFields();
+                            }
+                        }
+                    }
+                });
             }
         }]);
 
+    app.service('LoginService', ['$http', '$q', function ($http, $q) {
+        this.callLoginService = function (requestData) {
+            var deferred = $q.defer();
+            var json = JSON.stringify(requestData);
+
+            $http.post('authenticate', json)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    deferred.reject("An error occurred while fetching items");
+                });
+            return deferred.promise;
+        }
+    }]);
 
     app.service('Base64MD5EncodingService', function(){
         this.convertTOBase64MD5 = function(input){
