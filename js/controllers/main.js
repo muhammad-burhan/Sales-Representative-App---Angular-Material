@@ -10,8 +10,22 @@
 
     app.controller('CustomersController', ['$scope', '$location','$rootScope',
         function ($scope, $location, $rootScope) {
+            var sessionIdentifier = sessionStorage.getItem('sessionIdentifier');
 
-            //Do the session work here!
+            if (sessionIdentifier == '' ||
+                sessionIdentifier == null ||
+                typeof sessionIdentifier == 'undefined'){
+
+                $rootScope.isUserLoggedIn = false;
+                $rootScope.userName = '';
+                sessionStorage.setItem('userFullName', '');
+                sessionStorage.setItem('sessionIdentifier', '');
+
+                $location.path("/");
+            }
+
+            $rootScope.isUserLoggedIn = true;
+            $rootScope.userName = sessionStorage.getItem('userFullName');
         }]);
 
 })();
