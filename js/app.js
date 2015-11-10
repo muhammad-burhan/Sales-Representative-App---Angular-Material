@@ -16,6 +16,11 @@
           controller: 'LoginController',
           controllerAs: 'login'
         })
+      .when('/customers', {
+          templateUrl: 'views/main.html',
+          controller: 'CustomersController',
+          controllerAs: 'main'
+      })
         .otherwise({
           redirectTo: '/'
         });
