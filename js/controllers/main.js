@@ -28,4 +28,19 @@
             $rootScope.userName = sessionStorage.getItem('userFullName');
         }]);
 
+    app.service('CustomerListService', ['$http', '$q', function ($http, $q) {
+        this.callCustomerListService = function (requestData) {
+            var deferred = $q.defer();
+            var json = JSON.stringify(requestData);
+            $http.post('customer/list', json)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                })
+                .error(function () {
+                    deferred.reject("An error occurred while fetching items");
+                });
+            return deferred.promise;
+        }
+    }]);
+
 })();
