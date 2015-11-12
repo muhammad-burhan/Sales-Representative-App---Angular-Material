@@ -47,6 +47,10 @@
                         customerListCtrl.customerList = data;
                     });
             };
+
+            customerListCtrl.openCustomerDetail = function(userId){
+                $location.path('/details/' + userId);
+            };
         }]);
 
     app.service('CustomerListService', ['$http', '$q', function ($http, $q) {
