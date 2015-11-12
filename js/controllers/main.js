@@ -10,6 +10,7 @@
 
     app.controller('CustomersController', ['$scope', '$location','$rootScope',
         function ($scope, $location, $rootScope) {
+
             var sessionIdentifier = sessionStorage.getItem('sessionIdentifier');
 
             if (sessionIdentifier == '' ||
@@ -26,6 +27,26 @@
 
             $rootScope.isUserLoggedIn = true;
             $rootScope.userName = sessionStorage.getItem('userFullName');
+        }]);
+
+    app.controller('CustomerListController', ['$scope', 'CustomerListService', '$location',
+        function($scope, customerListService, $location) {
+
+            var customerListCtrl = this;
+            customerListCtrl.customerList = {};
+
+            customerListService.callCustomerListService({ "sessionId" : sessionStorage.getItem('sessionIdentifier') })
+                .then(function (data) {
+                    customerListCtrl.customerList = data;
+                });
+
+            customerListCtrl.refreshList = function() {
+
+                customerListService.callCustomerListService({ "sessionId" : sessionStorage.getItem('sessionIdentifier') })
+                    .then(function (data) {
+                        customerListCtrl.customerList = data;
+                    });
+            };
         }]);
 
     app.service('CustomerListService', ['$http', '$q', function ($http, $q) {
