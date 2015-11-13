@@ -1,4 +1,4 @@
-# Sales-Representative-App---Angular-Material
+# Angular-Material-Sales-Representative App
 Sales Representative app is a small app which shows the list of customers, and their detail page.
 This consists of three screens.
 - Login Page
@@ -15,7 +15,7 @@ On customers list page. User can see
 User can also refresh, sort and filter the list of customers. 
 
 Clicking on any list item system will take user to another screen which has details of the clicked customer. 
-- Here user can make a skype call (Skye API integrated)
+- User can make a skype call (Skye API integrated)
 - Phone call with cell phone.
 - Email
 - Can write notes and change the status of the customer. 
@@ -23,5 +23,5 @@ Clicking on any list item system will take user to another screen which has deta
 
 Bootstrap is used to make this app responsive. 
 
-Note: Originally, I used a backend REST services (Provided by Crossover) to fetch details of the customer and authentication.
+Note: Originally, I used REST services to fetch details of the customer and authentication.
 But I have not included that backend in this repo.
