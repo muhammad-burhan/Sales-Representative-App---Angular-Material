@@ -6,7 +6,8 @@
         'ngResource',
         'ngRoute',
         'ngMaterial',
-        'loginModule'
+        'loginModule',
+          'mainModule'
       ]);
 
   app.config(function ($routeProvider) {
@@ -16,11 +17,11 @@
           controller: 'LoginController',
           controllerAs: 'login'
         })
-      .when('/customers', {
-          templateUrl: 'views/main.html',
-          controller: 'CustomersController',
-          controllerAs: 'main'
-      })
+          .when('/customers', {
+              templateUrl: 'views/main.html',
+              controller: 'CustomersController',
+              controllerAs: 'main'
+          })
         .otherwise({
           redirectTo: '/'
         });
