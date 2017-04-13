@@ -15,7 +15,7 @@ On customers list page. User can see
 User can also refresh, sort and filter the list of customers. 
 
 Clicking on any list item system will take user to another screen which has details of the clicked customer. 
-- User can make a skype call (Skye API integrated)
+- User can make a skype call (Skype API integrated)
 - Phone call with cell phone.
 - Email
 - Can write notes and change the status of the customer. 
