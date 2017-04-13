@@ -1,0 +1,43 @@
+﻿Prerequisites
+- JDK 1.7		
+
+- My SQL 			
+
+
+Note
+"backend" folder contains:
+- db.sql 				
+- SQL file for schema and data to be used in app.
+- deploy_info.txt			
+- Details for setting up backend
+- SRA.jar				
+- Web Archive file to be executed
+- “src” folder 				
+- contains config files for backend
+
+Please follow the following steps to properly setup the backend.
+
+
+STEPS:
+- Setup the database using the following command
+	
+- mysql -u <username> -p<password> 
+	
+- CREATE DATABASE sales_rep
+	
+- use sales_rep
+	- source ‘path/to/db.sql’
+
+- To start the server, run the following command
+	
+- java -jar SRA.jar 
+
+Assuming “src” folder is in same directory as in “SRA.jar” and no other server is running at port 8080.
+
+Server will start at http://locahost:8080/
+
+
+Note:
+My SQL username and password used in backend code are “root” and “password”. 
+If your local My SQL setup has different username and password you can set the same in “backend/sales_rep/middleware.js”
+

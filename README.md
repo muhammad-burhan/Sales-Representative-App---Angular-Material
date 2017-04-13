@@ -23,5 +23,4 @@ Clicking on any list item system will take user to another screen which has deta
 
 Bootstrap is used to make this app responsive. 
 
-Note: Originally, I used REST services to fetch details of the customer and authentication.
-But I have not included that backend in this repo.
+I used REST services to fetch data from the backend. There is a .jar file in the main folder and instructions to setup the backend.
