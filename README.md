@@ -5,6 +5,12 @@ This consists of three screens.
 - Customer list
 - Customer Detail page. 
 
+![Alt text](mocks/mock1.jpg?raw=true)
+
+![Alt text](mocks/mock2.jpg?raw=true)
+
+![Alt text](mocks/mock3.jpg?raw=true)
+
 When users login, system will bring the list of customers.
 On customers list page. User can see
 - ID of the customer
